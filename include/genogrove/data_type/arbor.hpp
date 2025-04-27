@@ -24,6 +24,7 @@ namespace genogrove::data_type {
              * @ brief returns the name string of the chromosome
              */
             std::string get_name() const;
+            uit8_t get_index() const;
 
         private:
             uint8_t chromosome_index;
