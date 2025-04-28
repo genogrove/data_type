@@ -14,6 +14,7 @@
 #include <bitset>
 #include <unordered_map>
 #include <stdexcept>
+#include <optional>
 
 // Class
 #include "constants.hpp"
@@ -22,24 +23,34 @@
     #include <ranges>
 #endif
 
-namespace gcc = genogrove::core::constants;
-
 namespace genogrove::data_type {
     /*
      * @brief Registry class that keeps track of the chromosomes that are used in the data
      */
-    class chromosome_registry {
+    class index_registry {
         public:
             /*
              * Singleton to make sure that only one instance of the registry is created
              */
-            static chromosome_registry& instance();
+            static index_registry& instance();
+            uint8_t register_key(const std::string& key);
 
-            uint8_t register_chrom(const std::string& chrom);
-            int8_t is_registered(const std::string& chrom);
+            /*
+             * @brief retrieves the key for a given index - throws std::runtime_error if the index is not in the registry
+             */
+            std::string retrieve_key(uint8_t value);
 
-            uint8_t chrom_to_index(const std::string& chrom);
-            std::string index_to_chrom(uint8_t index);
+            /*
+             * @brief Encodes the key into a value - return std::nullopt if the key is not in the registry
+             */
+            std::optional<uint8_t> encode(const std::string& key);
+
+            /*
+             * @brief Decodes the value into a key - returns std::nulopt if the value is not in the registry
+             */
+            std::optional<std::string> decode(uint8_t value);
+
+
 
         private:
             std::unordered_map<std::string, uint8_t> registry;
