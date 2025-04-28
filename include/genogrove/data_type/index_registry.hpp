@@ -16,7 +16,7 @@
 #include <stdexcept>
 
 // Class
-#include "Constants.hpp"
+#include "constants.hpp"
 
 #if __cplusplus >= 202002L
     #include <ranges>

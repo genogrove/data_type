@@ -6,8 +6,8 @@
  * This file is part of genogrove and is licensed under the terms of the MIT license.
  * See the LICENSE file in the root of the repository for more information.
  */
-#ifndef DATATYPE_CHROMOSOME_HPP
-#define DATATYPE_CHROMOSOME_HPP
+#ifndef DATATYPE_INDEX_HPP
+#define DATATYPE_INDEX_HPP
 
 // Standard
 
@@ -15,20 +15,20 @@
 #include <genogrove/data_type/chromosome_registry.hpp>
 
 namespace genogrove::data_type {
-    class chromosome {
+    class index {
         public:
-            chromosome(std::string name);
-            ~chromosome();
+            index(std::string key);
+            ~index();
 
             /*
              * @ brief returns the name string of the chromosome
              */
-            std::string get_name() const;
-            uit8_t get_index() const;
+            std::string get_key() const;
+            uit8_t get_value() const;
 
         private:
-            uint8_t chromosome_index;
+            uint8_t value;
     };
 }
 
-#endif //DATATYPE_CHROMOSOME_HPP
+#endif //DATATYPE_INDEX_HPP
