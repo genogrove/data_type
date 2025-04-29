@@ -12,6 +12,7 @@
 
 // Standard
 #include <bitset>
+#include <cstdint>
 #include <unordered_map>
 #include <stdexcept>
 #include <optional>

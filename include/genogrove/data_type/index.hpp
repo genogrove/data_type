@@ -10,9 +10,10 @@
 #define DATATYPE_INDEX_HPP
 
 // Standard
+#include <cstdint>
 
 // Class
-#include <genogrove/data_type/chromosome_registry.hpp>
+#include <genogrove/data_type/index_registry.hpp>
 
 namespace genogrove::data_type {
     class index {
@@ -24,7 +25,7 @@ namespace genogrove::data_type {
              * @ brief returns the name string of the chromosome
              */
             std::string get_key() const;
-            uit8_t get_value() const;
+            uint8_t get_value() const;
 
         private:
             uint8_t value;
