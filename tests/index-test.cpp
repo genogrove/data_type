@@ -16,13 +16,19 @@
 
 namespace gdt = genogrove::data_type;
 
-TEST(chromosome_test, chromsome) {
-    gdt::index chr1("chr1");
-    gdt::index chr2("chr2");
-    gdt::index chr3("chr3");
+TEST(index_test, index) {
+    // add index to registry
+    gdt::index chr1("idx1");
+    gdt::index chr2("idx2");
+    gdt::index chr3("idx3");
 
-    // test that the chromosomes are created
+    // test that the chromosomes are created (according to the registry)
     EXPECT_EQ(chr1.get_value(), 0);
     EXPECT_EQ(chr2.get_value(), 1);
     EXPECT_EQ(chr3.get_value(), 2);
+
+    // test that the index can be retrieved from the registry
+    EXPECT_EQ(gdt::index_registry::instance().retrieve_key(chr1.get_value()), "idx1");
+    EXPECT_EQ(gdt::index_registry::instance().retrieve_key(chr2.get_value()), "idx2");
+    EXPECT_EQ(gdt::index_registry::instance().retrieve_key(chr3.get_value()), "idx3");
 }

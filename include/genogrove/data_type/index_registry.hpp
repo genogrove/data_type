@@ -16,6 +16,7 @@
 #include <unordered_map>
 #include <stdexcept>
 #include <optional>
+#include <iostream>
 
 // Class
 #include "constants.hpp"
@@ -50,8 +51,6 @@ namespace genogrove::data_type {
              * @brief Decodes the value into a key - returns std::nulopt if the value is not in the registry
              */
             std::optional<std::string> decode(uint8_t value);
-
-
 
         private:
             std::unordered_map<std::string, uint8_t> registry;
