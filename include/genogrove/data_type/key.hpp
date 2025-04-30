@@ -17,5 +17,13 @@
 #include <optional>
 #include <any>
 
+namespace genogrove::data_type {
+
+}
+
+
+
+
+
 
 #endif //CORE_KEY_HPP

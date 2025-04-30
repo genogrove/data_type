@@ -19,7 +19,7 @@ namespace genogrove::data_type {
     class index {
         public:
             index(std::string key);
-            ~index();
+            ~index() = default;
 
             /*
              * @ brief returns the name string of the chromosome

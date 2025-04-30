@@ -15,7 +15,7 @@
 #include <iostream>
 #include <string>
 
-namespace genogrove::datatype {
+namespace genogrove::data_type {
     class interval {
         public:
             interval();

@@ -11,7 +11,6 @@
 #define CORE_CONSTANTS_HPP
 
 // Standard
-#include <cstdef>
 
 namespace genogrove::core {
     namespace constants {

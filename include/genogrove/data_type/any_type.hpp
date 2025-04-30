@@ -13,6 +13,8 @@
 // Standard
 #include <string>
 #include <typeindex>
+#include <memory>
+#include <ostream>
 
 namespace genogrove::data_type {
     /*
@@ -26,8 +28,7 @@ namespace genogrove::data_type {
 
         // serialization
         virtual void serialize(std::ostream& os) const = 0;
-        virtual std::shared_ptr<AnyBase> deserialize(std::istream& is) = 0;
-
+        virtual std::shared_ptr<any_base> deserialize(std::istream& is) = 0;
     };
 
     /*
@@ -41,9 +42,9 @@ namespace genogrove::data_type {
 
     public:
         // constructors
-        AnyType() : type_name(typeid(T).name()) {}
-        AnyType(const T& data) : data(data), type_name(typeid(T).name()) {} // Constructor for lvalue references
-        AnyType(T&& data) : data(std::forward(data)), type_name(typeid(T).name()) {} // Constructor for rvalue references
+        any_type() : type_name(typeid(T).name()) {}
+        any_type(const T& data) : data(data), type_name(typeid(T).name()) {} // Constructor for lvalue references
+        any_type(T&& data) : data(std::forward(data)), type_name(typeid(T).name()) {} // Constructor for rvalue references
 
         // descructor
         ~any_type() override = default; // needs to be defined explicitly (otherwise delete due to use of std::optional)
@@ -53,7 +54,7 @@ namespace genogrove::data_type {
         T& get_data() { return data; }
 
         //std::string getDataTypeName() const override { return typeid(T).name();}
-        std::string get_type_name() const override { return typeName; }
+        std::string get_type_name() const override { return type_name; }
         void set_type_name(std::string typeName) { this->typeName = typeName; }
 
         /*
@@ -62,7 +63,7 @@ namespace genogrove::data_type {
         void serialize(std::ostream& os) const override {
             size_t type_name_len = type_name.size();
             os.write(reinterpret_cast<const char*>(&type_name_len), sizeof(type_name_len));
-            os.write(typeName.c_str(), type_name_len);
+            os.write(type_name.c_str(), type_name_len);
 
             os.write(reinterpret_cast<const char*>(&data), sizeof(T)); // write the data
         }
