@@ -1,14 +1,15 @@
 #include <genogrove/data_type/index_registry.hpp>
 
 namespace genogrove::data_type {
-    index_registry& index_registry::instance() {
+
+    index_registry &index_registry::instance() {
         static index_registry instance;
         return instance;
     }
 
-    uint8_t index_registry::register_key(const std::string& key) {
+    uint8_t index_registry::register_key(const std::string &key) {
         std::optional<uint8_t> idx = this->encode(key);
-        if(idx.has_value()) {
+        if (idx.has_value()) {
             std::cout << "key " << key << " already registered" << std::endl;
             return idx.value();
         } else {
@@ -20,28 +21,40 @@ namespace genogrove::data_type {
 
     std::string index_registry::retrieve_key(uint8_t value) {
         std::optional<std::string> key = this->decode(value);
-        if(key.has_value()) {
+        if (key.has_value()) {
             return key.value();
         } else {
             throw std::runtime_error("key not found");
         }
     }
 
-    std::optional<uint8_t> index_registry::encode(const std::string& key) {
+    std::optional<uint8_t> index_registry::encode(const std::string &key) {
 #if __cplusplus >= 202002L // C++20
-        if(registry.contains(key)) ? return registry.at(key) : std::nullopt;
+        if (registry.contains(key)) {
+            return registry.at(key);
+        } else {
+            return std::nullopt;
+        }
 #else // C++17
-        auto it = this->registry.find(key);
-        if(it != this->registry.end()) ? return it->second : std::nullopt;
-#endif
+    auto it = this->registry.find(key);
+    if(it != this->registry.end()) {
+        return std::optional<uint8_t>(it->second);
+    } else {
+        return std::nullopt;
     }
+#endif
+}
 
     std::optional<std::string> index_registry::decode(uint8_t value) {
 #if __cplusplus >= 202002L // C++20
-        auto it = std::ranges::find_if(this->registry, [&](const auto& pair) {
+        auto it = std::ranges::find_if(this->registry, [&](const auto &pair) {
             return pair.second == value;
         });
-        if(it != this->registry.end()) ? return it->first : std::nullopt;
+        if(it != this->registry.end()) {
+            return std::optional<std::string>(it->first);
+        } else {
+            std::nullopt;
+        }
 #else // C++17
         for(auto& pair : this->registry) {
             if(pair.second == value) {
@@ -50,5 +63,6 @@ namespace genogrove::data_type {
         }
         return std::nullopt;
 #endif
-
     }
+
+}

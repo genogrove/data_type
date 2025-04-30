@@ -1,27 +1,27 @@
-#include "genogrove/data_type/interval.hpp"
+#include <genogrove/data_type/interval.hpp>
 
-namespace genogrove::datatype {
+namespace genogrove::data_type {
     interval::interval() : start(std::string::npos), end(std::string::npos) {}
     interval::interval(size_t start, size_t end) : start(start), end(end) {}
     interval::~interval() {}
 
-    bool operator<(const interval& intvl1, const interval& intvl2) {
-        if(intvl1.getStart() == intvl2.getStart()) {
-            return intvl1.getEnd() < intvl2.getEnd();
+    bool interval::operator<(const interval& other) const {
+        if(this->getStart() == other.getStart()) {
+            return this->getEnd() < other.getEnd();
         } else {
-            return intvl1.getStart() < intvl2.getEnd();
+            return this->getStart() < other.getEnd();
         }
     }
 
-    bool operator==(const interval& intvl1, const interval& intvl2) {
-        return intvl1.getStart() == intvl2.getStart() && intvl1.getEnd() == intvl2.getEnd();
+    bool interval::operator==(const interval& other) const {
+        return this->getStart() == other.getStart() && this->getEnd() == other.getEnd();
     }
 
-    bool operator>(const interval& intvl1, const interval& intvl2) {
-        if(intvl1.getStart() == intvl2.getStart()) {
-            return intvl1.getEnd() > intvl2.getEnd();
+    bool interval::operator>(const interval& other) const {
+        if(this->getStart() == other.getStart()) {
+            return this->getEnd() > other.getEnd();
         } else {
-            return intvl1.getStart() > intvl2.getEnd();
+            return this->getStart() > other.getEnd();
         }
     }
 
