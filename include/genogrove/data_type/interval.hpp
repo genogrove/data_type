@@ -14,19 +14,23 @@
 #include <cstddef>
 #include <iostream>
 #include <string>
-#include <compare>
 
 namespace genogrove::datatype {
-    class Interval {
+    class interval {
         public:
-            Interval();
-            Interval(size_t start, size_t end):
-            ~Interval();
+            interval();
+            interval(size_t start, size_t end);
+            ~interval();
 
             /*
-             * @brief operator overload for intervals to check if they are non-overlapping (e.g., left-most end < right-most start)
+             * @brief Compares two intervals based on their position
+             * @return Ordering
              */
-            std::strong_ordering operator<=>(const Interval& other) const;
+            bool operator<(const interval& other) const;
+            bool operator==(const interval& other) const;
+            bool operator>(const interval& other) const;
+
+//            std::strong_ordering operator<=>(const interval& other) const;
             /*
              * replaces:
              * bool operator<(const Interval& other) const;
@@ -43,9 +47,9 @@ namespace genogrove::datatype {
             /*
              * @brief Check if the subjected interval is left of the class interval
              */
-            bool leftOf(const Interval& other) const;
+            bool leftOf(const interval& other) const;
 
-            static bool overlap(const Interval& a, const Interval& b);
+            static bool overlap(const interval& a, const interval& b);
 
             // getter & setter
             /*
@@ -75,7 +79,7 @@ namespace genogrove::datatype {
             /*
              * @brief Deserialize the interval from a stream
              */
-            static Interval deserialize(std::istream& is);
+            static interval deserialize(std::istream& is);
 
         private:
             size_t start;
