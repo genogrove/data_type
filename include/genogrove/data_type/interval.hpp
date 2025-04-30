@@ -79,7 +79,7 @@ namespace genogrove::datatype {
             /*
              * @brief Deserialize the interval from a stream
              */
-            static interval deserialize(std::istream& is);
+            interval deserialize(std::istream& is);
 
         private:
             size_t start;
