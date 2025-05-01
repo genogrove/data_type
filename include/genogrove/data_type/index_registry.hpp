@@ -35,7 +35,10 @@ namespace genogrove::data_type {
              * Singleton to make sure that only one instance of the registry is created
              */
             static index_registry& instance();
-            uint8_t register_key(const std::string& key);
+            /*
+             * @brief registers a string as an index - does nothing if the
+             */
+            void register_key(const std::string& key);
 
             /*
              * @brief retrieves the key for a given index - throws std::runtime_error if the index is not in the registry
