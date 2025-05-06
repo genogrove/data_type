@@ -22,9 +22,13 @@ namespace genogrove::data_type {
             ~index() = default;
 
             /*
-             * @ brief returns the name string of the chromosome
+             * @brief returns the name string of the index
              */
             std::string get_key() const;
+
+            /*
+             * @brief returns the value of the index
+             */
             uint8_t get_value() const;
 
         private:
