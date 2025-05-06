@@ -19,11 +19,9 @@
 #include <iostream>
 
 // Class
-#include "constants.hpp"
+#include <genogrove/utility/ranges.hpp>
 
-#if __cplusplus >= 202002L
-    #include <ranges>
-#endif
+namespace ggu = genogrove::utility;
 
 namespace genogrove::data_type {
     /*
@@ -38,22 +36,24 @@ namespace genogrove::data_type {
             /*
              * @brief registers a string as an index - does nothing if the
              */
-            void register_key(const std::string& key);
+            uint8_t register_key(const std::string& key);
 
             /*
-             * @brief retrieves the key for a given index - throws std::runtime_error if the index is not in the registry
+             * @brief checks if given key has already been registered
              */
-            std::string retrieve_key(uint8_t value);
+            bool is_registered(const std::string& key);
 
             /*
-             * @brief Encodes the key into a value - return std::nullopt if the key is not in the registry
+             * @brief retrieves the key for a given index (if present)
+             * @return std::nullopt if the index is not in the registry
              */
-            std::optional<uint8_t> encode(const std::string& key);
+            std::optional<std::string> key_lookup(uint8_t value);
 
             /*
-             * @brief Decodes the value into a key - returns std::nulopt if the value is not in the registry
+             * @brief retrieves the index for a given key (if present)
+             * @return std::nullopt if the key is not in the registry
              */
-            std::optional<std::string> decode(uint8_t value);
+            std::optional<uint8_t> value_lookup(const std::string& key);
 
         private:
             std::unordered_map<std::string, uint8_t> registry;

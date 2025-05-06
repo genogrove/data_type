@@ -2,6 +2,15 @@ cmake_minimum_required(VERSION 3.10)
 project(genogrove_data_type)
 set(CMAKE_CXX_STANDARD 20)
 
+if(NOT TARGET genogrove_utility)
+    include(FetchContent)
+    FetchContent_Declare(
+            genogrove_utility
+            GIT_REPOSITORY https://github.com/genogrove/utility.git
+            GIT_TAG main # TODO: change to release version
+    )
+    FetchContent_MakeAvailable(genogrove_utility)
+endif()
 
 if(NOT TARGET genogrove_config)
     include(FetchContent)
@@ -41,6 +50,7 @@ target_include_directories(genogrove_data_type
 )
 
 target_link_libraries(genogrove_data_type genogrove_config)
+target_link_libraries(genogrove_data_type genogrove_utility)
 
 # optionally include tests
 if(BUILD_TESTS)
