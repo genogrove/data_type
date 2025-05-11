@@ -1,0 +1,8 @@
+//
+// Created by Richard Albin Schaefer on 5/5/25.
+//
+
+#ifndef GENOGROVE_DATA_TYPE_QUERY_RESULT_HPP
+#define GENOGROVE_DATA_TYPE_QUERY_RESULT_HPP
+
+#endif //GENOGROVE_DATA_TYPE_QUERY_RESULT_HPP
