@@ -28,7 +28,7 @@ TEST(index_test, index) {
     EXPECT_EQ(chr3.get_value(), 2);
 
     // test that the index can be retrieved from the registry
-    EXPECT_EQ(gdt::index_registry::instance().retrieve_key(chr1.get_value()), "idx1");
-    EXPECT_EQ(gdt::index_registry::instance().retrieve_key(chr2.get_value()), "idx2");
-    EXPECT_EQ(gdt::index_registry::instance().retrieve_key(chr3.get_value()), "idx3");
+    EXPECT_EQ(gdt::index_registry::instance().key_lookup(chr1.get_value()), "idx1");
+    EXPECT_EQ(gdt::index_registry::instance().key_lookup(chr2.get_value()), "idx2");
+    EXPECT_EQ(gdt::index_registry::instance().key_lookup(chr3.get_value()), "idx3");
 }
