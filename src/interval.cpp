@@ -9,7 +9,7 @@ namespace genogrove::data_type {
         if(this->getStart() == other.getStart()) {
             return this->getEnd() < other.getEnd();
         } else {
-            return this->getStart() < other.getEnd();
+            return this->getStart() < other.getStart();
         }
     }
 
@@ -21,7 +21,7 @@ namespace genogrove::data_type {
         if(this->getStart() == other.getStart()) {
             return this->getEnd() > other.getEnd();
         } else {
-            return this->getStart() > other.getEnd();
+            return this->getStart() > other.getStart();
         }
     }
 
