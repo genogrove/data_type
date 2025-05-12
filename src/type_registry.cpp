@@ -6,8 +6,8 @@ namespace genogrove::data_type {
     std::unordered_map<std::string, factory_function> type_registry::factory_functions;
 
     // getter & setter
-    std::unordered_map<std::type_index, std::string> type_registry::getTypeNames() { return type_names; }
-    std::unordered_map<std::string, cast_function> type_registry::getCastFunctions() { return cast_functions; }
+    std::unordered_map<std::type_index, std::string> type_registry::get_type_names() { return type_names; }
+    std::unordered_map<std::string, cast_function> type_registry::get_cast_functions() { return cast_functions; }
 
     // reset the TypeRegistry
     void type_registry::reset() {
