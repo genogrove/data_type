@@ -48,7 +48,7 @@ namespace genogrove::data_type {
                         if(!castedObj) {
                             std::cerr << "Failed to cast object to type " << typeid(T).name() << std::endl;
                         }
-                        return castedObj->getData();
+                        return castedObj->get_data();
                     };
                 }
 
@@ -66,14 +66,14 @@ namespace genogrove::data_type {
             // cast a type back from the registered function
             template<typename T>
             static T cast(const std::shared_ptr<any_base>& obj) {
-                std::string typeName = typeid(T).name();
+                std::string type_name = typeid(T).name();
                 // check if the type has been registered
-                if (cast_functions.find(typeName) == cast_functions.end()) {
+                if (cast_functions.find(type_name) == cast_functions.end()) {
                     throw std::runtime_error("The type has not been registered");
                 }
 
                 // perform the cast
-                std::any result = cast_functions[typeName](obj);
+                std::any result = cast_functions[type_name](obj);
                 if (result.has_value()) {
                     return std::any_cast<T>(result);
                 } else {
@@ -82,19 +82,19 @@ namespace genogrove::data_type {
             }
 
             template<typename T>
-            static bool checktype(std::shared_ptr<any_base>& obj) {
+            static bool check_type(std::shared_ptr<any_base>& obj) {
                 return typeid(T).name() == obj->get_type_name();
             }
 
             // getter & setter
-            static std::unordered_map<std::type_index, std::string> getTypeNames();
-            static std::unordered_map<std::string, cast_function> getCastFunctions();
+            static std::unordered_map<std::type_index, std::string> get_type_names();
+            static std::unordered_map<std::string, cast_function> get_cast_functions();
 
             /*
              * @brief Reset te TypeRegistry
              */
             static void reset();
-            static std::shared_ptr<any_base> create(const std::string& typeName);
+            static std::shared_ptr<any_base> create(const std::string& type_name);
 
         private:
             type_registry() = default;
