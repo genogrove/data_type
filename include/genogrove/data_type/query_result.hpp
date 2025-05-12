@@ -12,16 +12,24 @@
 
 // Standard
 #include <vector>
+#include <memory>
+
+// genogrove
+#include <genogrove/data_type/any_type.hpp>
 
 namespace genogrove::data_type {
-    template<typename query_type, typename result_type>
+    template<typename query_type>
     class query_result {
         public:
-            query_result(query_type query, std::vector<result_type> results);
+            query_result(query_type query);
+            void add_result(std::shared_ptr<any_base> result);
+
+            query_type get_query() const;
+            std::vector<std::shared_ptr<any_base>> get_results() const;
 
         private:
             query_type query;
-            std::vector<result_type> results;
+            std::vector<std::shared_ptr<any_base>> results;
     };
 }
 
