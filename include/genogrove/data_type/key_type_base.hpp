@@ -31,7 +31,24 @@ namespace genogrove::data_type {
 #include <type_traits>
 
 namespace genogrove::data_type {
-    
+    template<typename T, typename = void>
+    struct is_key_type_base : std::false_type {};
+
+    template<typename T>
+    struct is_key_type_base<T, std::void_t<
+            decltype(std::declval<bool&>() = std::declval<T>() < std::declval<T>()),
+            decltype(std::declval<bool&>() = std::declval<T>() > std::declval<T>()),
+            decltype(std::declval<bool&>() = std::declval<T>() == std::declval<T>()),
+            decltype(T::left_of(std::declval<T>(), std::declval<T>())),
+            decltype(T::overlap(std::declval<T>(), std::declval<T>())),
+            decltype(std::declval<size_t&>() = std::declval<T>().getStart()),
+            decltype(std::declval<size_t&>() = std::declval<T>().getEnd())
+        >> : std::true_type {};
+
+    // helper function for c++17
+//    template<typename key_type,
+//                typename = std::enable_if_t<is_key_type_base<key_type>::value>>
+
 }
 
 
