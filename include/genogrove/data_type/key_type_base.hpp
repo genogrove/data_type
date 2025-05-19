@@ -46,9 +46,11 @@ namespace genogrove::data_type {
         >> : std::true_type {};
 
     // helper function for c++17
-//    template<typename key_type,
-//                typename = std::enable_if_t<is_key_type_base<key_type>::value>>
-
+    template<typename key_type,
+                typename = std::enable_if_t<is_key_type_base<key_type>::value, int>>::type = 0>
+    constexpr bool is_key_type_base() {
+        return true;
+    }
 }
 
 
