@@ -53,10 +53,6 @@ namespace genogrove::data_type {
     }
 }
 
-
-
-
-
 #endif
 
 
