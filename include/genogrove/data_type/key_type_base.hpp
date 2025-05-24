@@ -55,13 +55,4 @@ namespace genogrove::data_type {
 
 #endif
 
-
-
-
-
-
-
-
-
-
 #endif //GENOGROVE_DATA_TYPE_KEY_TYPE_BASE_HPP
