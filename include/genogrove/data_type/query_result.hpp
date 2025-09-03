@@ -13,23 +13,27 @@
 // Standard
 #include <vector>
 #include <memory>
+#include <unordered_map>
 
 // genogrove
 #include <genogrove/data_type/any_type.hpp>
 
 namespace genogrove::data_type {
-    template<typename query_type>
+    template<typename query_type, typename key_type>
     class query_result {
         public:
             query_result(query_type query);
-            void add_result(std::shared_ptr<any_base> result);
+            void add_result(key_type* key);
 
             query_type get_query() const;
-            std::vector<std::shared_ptr<any_base>> get_results() const;
+            std::vector<key_type*> get_results() const;
 
         private:
             query_type query;
-            std::vector<std::shared_ptr<any_base>> results;
+            std::vector<key_type*> keys;
+
+//            std::vector<std::shared_ptr<any_base>> results;
+//            std::unordered_map<key_type, std::shared_ptr<any_base>> results;
     };
 }
 
