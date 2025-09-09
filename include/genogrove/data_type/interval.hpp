@@ -27,8 +27,10 @@ namespace genogrove::data_type {
              * @return Ordering
              */
             bool operator<(const interval& other) const;
-            bool operator==(const interval& other) const;
+            bool operator<=(const interval& other) const;
             bool operator>(const interval& other) const;
+            bool operator>=(const interval& other) const;
+            bool operator==(const interval& other) const;
 
 //            std::strong_ordering operator<=>(const interval& other) const;
             /*

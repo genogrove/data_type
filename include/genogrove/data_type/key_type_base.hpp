@@ -11,6 +11,8 @@ namespace genogrove::data_type {
     template<typename T>
     concept key_type_base = requires (T a, T b) {
         { a < b } -> std::convertible_to<bool>;
+        { a <= b } -> std::convertible_to<bool>;
+        { a >= b } -> std::convertible_to<bool>;
         { a > b } -> std::convertible_to<bool>;
         { a == b } -> std::convertible_to<bool>;
         { T::left_of(a, b)} -> std::convertible_to<bool>;
@@ -37,6 +39,8 @@ namespace genogrove::data_type {
     template<typename T>
     struct is_key_type_base<T, std::void_t<
             decltype(std::declval<bool&>() = std::declval<T>() < std::declval<T>()),
+            decltype(std::declval<bool&>() = std::declval<T>() <= std::declval<T>()),
+            decltype(std::declval<bool&>() = std::declval<T>() >= std::declval<T>()),
             decltype(std::declval<bool&>() = std::declval<T>() > std::declval<T>()),
             decltype(std::declval<bool&>() = std::declval<T>() == std::declval<T>()),
             decltype(T::left_of(std::declval<T>(), std::declval<T>())),
