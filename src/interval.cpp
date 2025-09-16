@@ -13,10 +13,6 @@ namespace genogrove::data_type {
         }
     }
 
-    bool interval::operator==(const interval& other) const {
-        return this->getStart() == other.getStart() && this->getEnd() == other.getEnd();
-    }
-
     bool interval::operator>(const interval& other) const {
         if(this->getStart() == other.getStart()) {
             return this->getEnd() > other.getEnd();
@@ -25,8 +21,8 @@ namespace genogrove::data_type {
         }
     }
 
-    std::string interval::toString() const {
-        return std::to_string(this->start) + "-" + std::to_string(this->end);
+    bool interval::operator==(const interval& other) const {
+        return this->getStart() == other.getStart() && this->getEnd() == other.getEnd();
     }
 
     // getter & setter
@@ -35,15 +31,28 @@ namespace genogrove::data_type {
     size_t interval::getEnd() const { return this->end; }
     void interval::setEnd(size_t end) { this->end = end; }
 
-    bool interval::leftOf(const interval& other) const {
-        return other.getStart() < this->start;
-    }
-
     bool interval::overlap(const interval& intvl1, const interval& intvl2) {
         interval intvl = {std::max(intvl1.getStart(), intvl2.getStart()),
                           std::min(intvl1.getEnd(), intvl2.getEnd())};
 
         return intvl.getStart() <= intvl.getEnd();
+    }
+
+    interval interval::aggregate(std::vector<interval>* intervals) {
+        interval parent{std::string::npos, 0};
+        for (auto& intvl : *intervals) {
+            if (intvl.getStart() < parent.getStart()) {
+                parent.setStart(intvl.getStart());
+            }
+            if (intvl.getEnd() > parent.getEnd()) {
+                parent.setEnd(intvl.getEnd());
+            }
+        }
+    }
+
+
+    std::string interval::toString() const {
+        return std::to_string(this->start) + "-" + std::to_string(this->end);
     }
 
     void interval::serialize(std::ostream& os) const {

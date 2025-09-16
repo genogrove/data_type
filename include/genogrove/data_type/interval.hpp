@@ -14,6 +14,7 @@
 #include <cstddef>
 #include <iostream>
 #include <string>
+#include <vector>
 
 namespace genogrove::data_type {
     class interval {
@@ -23,31 +24,23 @@ namespace genogrove::data_type {
             ~interval();
 
             /*
-             * @brief Compares two intervals based on their position
-             * @return Ordering
-             */
-//            bool operator<(const interval& other) const;
-//            bool operator<=(const interval& other) const;
-
-            /*
              * @brief compares two intervals. Note: We check if the left interval is less or overlapping the right
              */
             bool operator<(const interval& other) const;
             bool operator>(const interval& other) const;
             bool operator==(const interval& other) const;
 
-
-//            bool operator>=(const interval& other) const;
-//            bool operator==(const interval& other) const;
-
-//            std::strong_ordering operator<=>(const interval& other) const;
             /*
-             * replaces:
-             * bool operator<(const Interval& other) const;
-             * bool operator>(const Interval& other) const;
-             * bool operator<=(const Interval& other) const;
-             * bool operator>=(const Interval& other) const
+             * @brief determine if two intervals overlap
              */
+            static bool overlap(const interval& a, const interval& b);
+
+            /*
+             * @brief
+             */
+            interval aggregate(std::vector<interval>* intervals);
+
+
 
             /*
              * @brief converts the interval to a string
@@ -59,21 +52,6 @@ namespace genogrove::data_type {
              */
             // bool leftOf(const interval& other) const;
 
-            static bool overlap(const interval& a, const interval& b);
-
-            interval aggregate(std::vector<interval>* intervals) {
-                interval intvl = {std::string::npos, 0};
-                // determine interval that covers all intervals
-                for (auto& i : *intervals) {
-                    if (i.getStart() < intvl.getStart()) {
-                        intvl.setStart(i.getStart());
-                    }
-                    if (i.getEnd() > intvl.getEnd()) {
-                        intvl.setEnd(i.getEnd());
-                    }
-                }
-                return intvl;
-            }
 
             // getter & setter
             /*
