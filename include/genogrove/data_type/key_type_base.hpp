@@ -2,6 +2,7 @@
 #define GENOGROVE_DATA_TYPE_KEY_TYPE_BASE_HPP
 
 #include <cstddef>
+#include <vector>
 
 #if __cplusplus >= 202002L
 // C++20 with concepts
@@ -11,14 +12,10 @@ namespace genogrove::data_type {
     template<typename T>
     concept key_type_base = requires (T a, T b) {
         { a < b } -> std::convertible_to<bool>;
-        { a <= b } -> std::convertible_to<bool>;
-        { a >= b } -> std::convertible_to<bool>;
         { a > b } -> std::convertible_to<bool>;
         { a == b } -> std::convertible_to<bool>;
-        { T::left_of(a, b)} -> std::convertible_to<bool>;
         { T::overlap(a,b) } -> std::convertible_to<bool>;
-        { a.getStart() } -> std::convertible_to<size_t>;
-        { a.getEnd() } -> std::convertible_to<size_t>;
+        { T::aggregate(std::vector<T>{}) } -> std::convertible_to<T>;
     };
 
     // helper function for c++20 (with concept constraints)
