@@ -12,43 +12,40 @@
 // standard
 #include <vector>
 #include <istream>
+#include <typeindex>
 
 // genogrove
 #include <genogrove/data_type/any_type.hpp>
 #include <genogrove/data_type/type_registry.hpp>
+#include <genogrove/data_type/key_type_base.hpp>
 
 namespace genogrove::data_type {
     /*
      * @brief the key class
      * @details the key class is used to specify keys in any data structure
      */
-    template<typename key_type>
+    template<key_type_base key_type>
     class key {
         public:
-            /*
-             * @brief default constructor
-             */
-            key<key_type>() :
-                value(key_type()),
-                data(nullptr),
-                single_link(nullptr),
-                multi_link(std::vector<key*>()) {}
-
             /*
              * @brief Constructor of a key with arbitrary key object
              */
             key(key_type value) :
                 value(value),
                 data(nullptr),
+                data_type_index(typeid(void)),
                 single_link(nullptr),
                 multi_link(std::vector<key*>()) {}
 
             template<typename data_type>
             key(key_type kvalue, data_type data) :
                 value(kvalue),
-                data(std::make_shared<ggt::any_type<std::decay_t<data_type>>>(data)),
                 single_link(nullptr),
-                multi_link(std::vector<key*>()) {}
+                multi_link(std::vector<key*>()) {
+
+                this->data = std::make_shared<any_type<std::decay_t<data_type>>>(data);
+                this->data_type_index = type_registry::register_type<data_type>();
+            }
 
             /*
             * @brief destructor
@@ -56,12 +53,27 @@ namespace genogrove::data_type {
             ~key() = default;
 
             /*
+             * @brief set the value of the key
+            */
+            void set_value(key_type value) { this->value = value; }
+            /*
             * @brief returns the value of the key
             */
             key_type get_value() const { return value; }
 
-            bool operator<(const key_type& other) const;
-            bool operator>(const key_type& other) const;
+            /*
+             * @brief set the data of the key
+             */
+            template<typename data_type>
+            void set_data(data_type data) {
+                this->data = std::make_shared<any_type<std::decay_t<data_type>>>(data);
+                this->data_type_index = type_registry::register_type<data_type>();
+            }
+
+            /*
+             * @brief get the data of the key
+             */
+            auto get_data() const { return data; }
 
             void serialize(std::ostream& os) const {
                 value.serialize(os);
@@ -103,17 +115,16 @@ namespace genogrove::data_type {
                     is.read(&type_name[0], type_name_length);
 
                     // deserialize the data object
-                    key1.data = ggt::type_registry::create(type_name);
+                    key1.data = type_registry::create(type_name);
                 }
             }
 
         private:
             key_type value;
-            std::shared_ptr<ggt::any_base> data;
+            std::shared_ptr<any_base> data;
+            std::type_index data_type_index;
             key* single_link;
             std::vector<key*> multi_link;
-
-
 
     };
 }

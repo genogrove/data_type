@@ -3,7 +3,6 @@
 namespace genogrove::data_type {
     interval::interval() : start(std::string::npos), end(std::string::npos) {}
     interval::interval(size_t start, size_t end) : start(start), end(end) {}
-    interval::~interval() {}
 
     bool interval::operator<(const interval& other) const {
         if(this->getStart() == other.getStart()) {
@@ -38,9 +37,11 @@ namespace genogrove::data_type {
         return intvl.getStart() <= intvl.getEnd();
     }
 
-    interval interval::aggregate(std::vector<interval>* intervals) {
+    interval interval::aggregate(const std::vector<interval>& intervals) {
+        if (intervals.empty()) {}
+
         interval parent{std::string::npos, 0};
-        for (auto& intvl : *intervals) {
+        for (auto& intvl : intervals) {
             if (intvl.getStart() < parent.getStart()) {
                 parent.setStart(intvl.getStart());
             }
