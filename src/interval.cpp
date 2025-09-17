@@ -48,6 +48,7 @@ namespace genogrove::data_type {
                 parent.setEnd(intvl.getEnd());
             }
         }
+        return parent;
     }
 
 
