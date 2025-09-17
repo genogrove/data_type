@@ -38,7 +38,9 @@ namespace genogrove::data_type {
     }
 
     interval interval::aggregate(const std::vector<interval>& intervals) {
-        if (intervals.empty()) {}
+        if (intervals.empty()) {
+            return interval{};
+        }
 
         interval parent{std::string::npos, 0};
         for (auto& intvl : intervals) {
