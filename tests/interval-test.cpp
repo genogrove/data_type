@@ -25,8 +25,8 @@ TEST(interval_test, interval_operators) {
 
     // test operator< and operator>
     gdt::interval intvl3(10, 20);
-    gdt::interval intvl4(20, 30);
-    gdt::interval intvl5(15, 25);
+    gdt::interval intvl4(10, 25);
+    gdt::interval intvl5(15, 30);
 
     EXPECT_TRUE(intvl3 < intvl4);
     EXPECT_FALSE(intvl3 > intvl4);
