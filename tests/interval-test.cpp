@@ -34,7 +34,7 @@ TEST(interval_test, interval_operators) {
     EXPECT_TRUE(intvl3 < intvl5);
     EXPECT_FALSE(intvl3 > intvl5);
 
-    // test secondary comparisons when start positiions are equal
+    // test secondary comparisons when start positions are equal
     EXPECT_TRUE(intvl3 < intvl6);
     EXPECT_TRUE(intvl4 < intvl6);
     EXPECT_FALSE(intvl5 < intvl6);
