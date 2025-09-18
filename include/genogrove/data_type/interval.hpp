@@ -21,7 +21,7 @@ namespace genogrove::data_type {
         public:
             interval();
             interval(size_t start, size_t end);
-            ~interval();
+            ~interval() = default;
 
             /*
              * @brief compares two intervals. Note: We check if the left interval is less or overlapping the right
@@ -38,9 +38,7 @@ namespace genogrove::data_type {
             /*
              * @brief
              */
-            interval aggregate(std::vector<interval>* intervals);
-
-
+            static interval aggregate(const std::vector<interval>& intervals);
 
             /*
              * @brief converts the interval to a string

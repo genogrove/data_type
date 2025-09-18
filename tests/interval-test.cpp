@@ -26,15 +26,18 @@ TEST(interval_test, interval_operators) {
     // test operator< and operator>
     gdt::interval intvl3(10, 20);
     gdt::interval intvl4(10, 25);
-    gdt::interval intvl5(20, 30);
+    gdt::interval intvl5(15, 30);
+    gdt::interval intvl6(10, 30);
 
-    EXPECT_TRUE(intvl3 < intvl5);
-    EXPECT_TRUE(intvl5 > intvl3);
-
-    EXPECT_FALSE(intvl5 < intvl4);
-    EXPECT_FALSE(intvl5 < intvl3);
-
-    // check when start position is equal
     EXPECT_TRUE(intvl3 < intvl4);
     EXPECT_FALSE(intvl3 > intvl4);
+    EXPECT_TRUE(intvl3 < intvl5);
+    EXPECT_FALSE(intvl3 > intvl5);
+
+    // test secondary comparisons when start positions are equal
+    EXPECT_TRUE(intvl3 < intvl6);
+    EXPECT_TRUE(intvl4 < intvl6);
+    EXPECT_FALSE(intvl5 < intvl6);
+    EXPECT_FALSE(intvl6 < intvl3);
+
 }
