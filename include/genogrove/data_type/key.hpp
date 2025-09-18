@@ -33,19 +33,15 @@ namespace genogrove::data_type {
             key(key_type value) :
                 value(value),
                 data(nullptr),
-                data_type_index(typeid(void)),
                 single_link(nullptr),
                 multi_link(std::vector<key*>()) {}
 
             template<typename data_type>
             key(key_type kvalue, data_type data) :
                 value(kvalue),
+                data(std::make_shared<any_type<std::decay_t<data_type>>>(data)),
                 single_link(nullptr),
-                multi_link(std::vector<key*>()) {
-
-                this->data = std::make_shared<any_type<std::decay_t<data_type>>>(data);
-                this->data_type_index = type_registry::register_type<data_type>();
-            }
+                multi_link(std::vector<key*>()) {}
 
             /*
             * @brief destructor
@@ -67,13 +63,13 @@ namespace genogrove::data_type {
             template<typename data_type>
             void set_data(data_type data) {
                 this->data = std::make_shared<any_type<std::decay_t<data_type>>>(data);
-                this->data_type_index = type_registry::register_type<data_type>();
             }
 
             /*
              * @brief get the data of the key
              */
             auto get_data() const { return data; }
+
 
             void serialize(std::ostream& os) const {
                 value.serialize(os);
@@ -122,7 +118,6 @@ namespace genogrove::data_type {
         private:
             key_type value;
             std::shared_ptr<any_base> data;
-            std::type_index data_type_index;
             key* single_link;
             std::vector<key*> multi_link;
 

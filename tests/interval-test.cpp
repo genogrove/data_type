@@ -12,10 +12,15 @@
 
 // Genogrove
 #include <genogrove/data_type/interval.hpp>
+#include <genogrove/data_type/key_type_base.hpp>
 
 namespace gdt = genogrove::data_type;
 
 TEST(interval_test, interval_operators) {
+    static_assert(gdt::key_type_base<gdt::interval>,
+        "interval must satisfy key_type_base concept");
+
+
     gdt::interval intvl1(20, 30);
     gdt::interval intvl2(20, 30);
 

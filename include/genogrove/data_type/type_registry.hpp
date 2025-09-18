@@ -40,7 +40,7 @@ namespace genogrove::data_type {
              * @brief
              */
             template<typename T>
-            static std::type_index register_type() {
+            static void register_type() {
                 std::type_index type_index = typeid(T);
                 std::string type_name = typeid(T).name();
 
@@ -64,8 +64,6 @@ namespace genogrove::data_type {
                         return std::make_shared<any_type<T>>();
                     };
                 }
-
-                return type_index;
             }
 
             // cast a type back from the registered function
