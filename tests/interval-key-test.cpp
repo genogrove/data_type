@@ -19,14 +19,21 @@ namespace gdt = genogrove::data_type;
 TEST(key_test, constructors) {
  gdt::interval intvl(10, 20);
 
- // default constructor
+ // test constructor with value only
  gdt::key<gdt::interval> key1(intvl); // with value
  // check for type_index
  EXPECT_EQ(intvl, key1.get_value());
+ // test that no data is stored initially
+ EXPECT_EQ(key1.get_data(), nullptr);
 
+ // test constructor with value and data
+ gdt::type_registry::register_type<std::string>();
+ std::string string_data = "hello world";
+ gdt::key<gdt::interval> key2(intvl, string_data);
+ EXPECT_EQ(intvl, key2.get_value());
+ EXPECT_NE(key2.get_data(), nullptr);
 
-
-
+ auto data = key2.get_data();
+ auto data_string = gdt::type_registry::cast<std::string>(data);
+ EXPECT_EQ(string_data, data_string);
 }
-
-
