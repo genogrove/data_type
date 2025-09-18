@@ -27,6 +27,12 @@ namespace genogrove::data_type {
     template<key_type_base key_type>
     class key {
         public:
+            key() :
+                value(),
+                data(nullptr),
+                single_link(nullptr),
+                multi_link(nullptr) {}
+
             /*
              * @brief Constructor of a key with arbitrary key object
              */
@@ -34,14 +40,17 @@ namespace genogrove::data_type {
                 value(value),
                 data(nullptr),
                 single_link(nullptr),
-                multi_link(std::vector<key*>()) {}
+                multi_link(std::vector<key*>()) {
+            }
 
             template<typename data_type>
             key(key_type kvalue, data_type data) :
                 value(kvalue),
                 data(std::make_shared<any_type<std::decay_t<data_type>>>(data)),
                 single_link(nullptr),
-                multi_link(std::vector<key*>()) {}
+                multi_link(std::vector<key*>()) {
+                type_registry::register_type<data_type>();
+            }
 
             /*
             * @brief destructor
