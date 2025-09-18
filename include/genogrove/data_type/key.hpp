@@ -31,7 +31,7 @@ namespace genogrove::data_type {
                 value(),
                 data(nullptr),
                 single_link(nullptr),
-                multi_link(nullptr) {}
+                multi_link(std::vector<key*>()) {}
 
             /*
              * @brief Constructor of a key with arbitrary key object
