@@ -17,6 +17,7 @@
 
 // genogrove
 #include <genogrove/data_type/any_type.hpp>
+#include <genogrove/data_type/key.hpp>
 
 namespace genogrove::data_type {
     template<typename query_type>
@@ -26,11 +27,11 @@ namespace genogrove::data_type {
             query_type get_query() const { return this->query; }
             std::vector<query_type*> get_keys() const { return this->keys; }
 
-            void add_key(query_type* key) { this->keys.push_back(key); }
+            void add_key(key<query_type>* key) { this->keys.push_back(key); }
 
         private:
             query_type query;
-            std::vector<query_type*> keys;
+            std::vector<key<query_type>*> keys;
     };
 }
 
