@@ -25,7 +25,7 @@ namespace genogrove::data_type {
         public:
             query_result(query_type query) : query(query), keys{} {}
             query_type get_query() const { return this->query; }
-            std::vector<query_type*> get_keys() const { return this->keys; }
+            std::vector<key<query_type>*> get_keys() const { return this->keys; }
 
             void add_key(key<query_type>* key) { this->keys.push_back(key); }
 

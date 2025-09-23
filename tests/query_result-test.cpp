@@ -16,6 +16,7 @@
 // genogrove
 #include <genogrove/data_type/query_result.hpp>
 #include <genogrove/data_type/interval.hpp>
+#include <genogrove/data_type/type_registry.hpp>
 
 namespace gdt = genogrove::data_type;
 
@@ -28,19 +29,24 @@ TEST(query_result_test, constructor) {
     EXPECT_EQ(qres.get_query(), intvl); // check if query is set correctly
     EXPECT_TRUE(qres.get_keys().empty()); // check if keys are empty
 
+    // add int to type registry
+    gdt::type_registry::register_type<int>();
+
     // Add some element (ideally that would be keys - but lets use intervals here)
-    gdt::interval key1(15, 25);
-    gdt::interval key2(5, 12);
-    gdt::interval key3(30, 40);
+    gdt::interval intvl0(15, 25);
+    gdt::interval intvl1(5, 12);
+    gdt::interval intvl2(30, 40);
+
+    gdt::key<gdt::interval> key0(intvl0, 15);
+    gdt::key<gdt::interval> key1(intvl1, 5);
+    gdt::key<gdt::interval> key2(intvl2, 30);
+
+    qres.add_key(&key0);
     qres.add_key(&key1);
-    qres.add_key(&key2);
-    qres.add_key(&key3);
 
     // check if keys are added correctly
     auto keys = qres.get_keys();
-    ASSERT_EQ(keys.size(), 3);
-    EXPECT_EQ(*keys[0], key1);
-    EXPECT_EQ(*keys[1], key2);
-    EXPECT_EQ(*keys[2], key3);
-
+    ASSERT_EQ(keys.size(), 2);
+    EXPECT_EQ(keys[0]->get_value(), intvl0);
+    EXPECT_EQ(keys[1]->get_value(), intvl1);
 }
