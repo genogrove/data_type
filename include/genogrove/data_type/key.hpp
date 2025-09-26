@@ -79,6 +79,12 @@ namespace genogrove::data_type {
              */
             auto get_data() const { return data; }
 
+            /*
+             * @brief converts the key to strings
+             */
+            std::string toString() const {
+                return value.toString();
+            }
 
             void serialize(std::ostream& os) const {
                 value.serialize(os);
