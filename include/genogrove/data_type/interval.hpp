@@ -32,9 +32,8 @@ namespace genogrove::data_type {
 
             /*
              * @brief indicates that this is an interval type (constexpr C++20)
-             * /
+             */
             static constexpr bool is_interval = true;
-
 
             /*
              * @brief determine if two intervals overlap
