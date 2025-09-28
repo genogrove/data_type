@@ -53,7 +53,7 @@ target_link_libraries(genogrove_data_type genogrove_config)
 target_link_libraries(genogrove_data_type genogrove_utility)
 
 # optionally include tests
-if(BUILD_TESTS)
+if(BUILD_TESTING)
     enable_testing()
     add_subdirectory(tests)
 endif()
