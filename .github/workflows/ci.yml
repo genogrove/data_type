@@ -37,9 +37,6 @@ jobs:
         run: |
           echo "build-output-dir=${{ github.workspace }}/build" >> $GITHUB_OUTPUT
 
-      - name: configure cmake
-        shell: bash # needed for windows, otherwise powershell is used
-
       - name: configure cmake (MSVC)
         if: matrix.os == 'windows-latest' && matrix.c_compiler == 'cl'
         run: cmake -B ${{ steps.strings.outputs.build-output-dir }} \
