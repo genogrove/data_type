@@ -20,9 +20,11 @@ TEST(interval_test, interval_operators) {
     static_assert(gdt::key_type_base<gdt::interval>,
         "interval must satisfy key_type_base concept");
 
-
     gdt::interval intvl1(20, 30);
     gdt::interval intvl2(20, 30);
+
+    std::cout << intvl1.toString() << "\n";
+    std::cout << intvl2.toString() << "\n";
 
     // test operator==
     EXPECT_TRUE(intvl1 == intvl2);

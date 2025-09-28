@@ -56,7 +56,7 @@ namespace genogrove::data_type {
 
 
     std::string interval::toString() const {
-        return std::to_string(this->start) + "-" + std::to_string(this->end);
+        return "[" + std::to_string(this->start) + "," + std::to_string(this->end) + "]";
     }
 
     void interval::serialize(std::ostream& os) const {

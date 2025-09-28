@@ -39,16 +39,18 @@ jobs:
 
       - name: configure cmake
         run: > 
-          cmake -B ${{ steps.strings.outputs.build-output-dir }} 
-            -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
-            -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
-            -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+          cmake -B ${{ steps.strings.outputs.build-output-dir }} \
+            -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }} \
+            -DCMAKE_C_COMPILER=${{ matrix.c_compiler }} \
+            -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
             -S ${{ github.workspace }}
 
       - name: build genogrove data_type
-        run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }}
+        run: |
+          cmake --build ${{ steps.strings.outputs.build-output-dir }} \
+          --config ${{ matrix.build_type }}
 
       - name: run tests
         run : |
-          cd ${{ steps.strings.outputs.build-output-dir }}
+          cd ${{ steps.strings.outputs.build-output-dir }} \
           ctest -C ${{ matrix.build_type }} --output-on-failure
