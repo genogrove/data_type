@@ -56,8 +56,7 @@ jobs:
 
       - name: build genogrove data_type
         run: |
-          cmake --build ${{ steps.strings.outputs.build-output-dir }} \
-          --config ${{ matrix.build_type }}
+          cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }}
 
       - name: run tests
         working-directory: ${{ steps.strings.outputs.build-output-dir }}
