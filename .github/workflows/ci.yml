@@ -38,11 +38,12 @@ jobs:
           echo "build-output-dir=${{ github.workspace }}/build" >> $GITHUB_OUTPUT
 
       - name: configure cmake
-        run: > 
+        run: |
           cmake -B ${{ steps.strings.outputs.build-output-dir }} \
             -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }} \
             -DCMAKE_C_COMPILER=${{ matrix.c_compiler }} \
             -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
+            -DBUILD_TESTS=ON \
             -S ${{ github.workspace }}
 
       - name: build genogrove data_type
@@ -51,6 +52,5 @@ jobs:
           --config ${{ matrix.build_type }}
 
       - name: run tests
-        run : |
-          cd ${{ steps.strings.outputs.build-output-dir }} \
-          ctest -C ${{ matrix.build_type }} --output-on-failure
+        working-directory: ${{ steps.strings.outputs.build-output-dir }}
+        run : ctest -C ${{ matrix.build_type }} --output-on-failure
