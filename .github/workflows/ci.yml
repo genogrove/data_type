@@ -3,6 +3,7 @@ on: [push, pull_request]
 
 jobs:
   build:
+    name: ${{ matrix.c_compiler }}-${{ matrix.build_type }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false # change when library is more stable
